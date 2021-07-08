@@ -8,38 +8,42 @@ public class RunGame {
 	public static void main(String[] args) {
 		Random randomNumber = new Random();
 		int theRandom = randomNumber.nextInt(100) + 1;
+		boolean win = false;
+		Scanner scanner = new Scanner(System.in);
 		
-		for (int tries = 5; tries > 0; tries--) {
+		for (int tries = 5; tries > 0; tries--) { 
 			
 			System.out.println("Pick a number between 1 and 100");
-			Scanner scanner = new Scanner(System.in);
+			
 			int userGuess = scanner.nextInt();
 			
+			if (userGuess == theRandom) { 
+				win = true;
+				break;
+			}
+			
 			if (userGuess > 100 || userGuess < 1) {
+				// User guessed outside of range
 				System.out.println("Please enter a valid number between 1 and 100");
-				tries = tries++;
+				 tries = tries + 1;
+				 continue;	 
 			}
-			else if (userGuess < theRandom) {
-				if (tries == 1) {
-					break; 
-					}
-					else {
-				System.out.println("Please pick a higher number");
-					}
+			if (tries > 1) {
+				if (userGuess < theRandom) {
+					System.out.println("Please pick a higher number");				 
 				}
-			else if (userGuess > theRandom) {
-				if (tries == 1) {
-					break; 
-					}
-				else {
-				System.out.println("Please pick a lower number");
+				if (userGuess > theRandom) {
+					System.out.println("Pick a lower number");
 				}
-			}
-			else if (userGuess == theRandom) {
-				System.out.println("You win!");
 			}
 		}
-	System.out.println("You lose! The random number was " + theRandom);
+		scanner.close();
+		if (win) {
+			System.out.println("You win!");	
+		}
+		else {
+			System.out.println("Sorry you lose");
+		}
 	}
 }
 
